@@ -22,8 +22,9 @@ def make_nested_quarter_zine(
     N = len(pages)  # 56
     num_sheets = N // 4  # 14 sheets
 
-    # Target Sheet: US Letter Landscape (11 x 8.5 inches in points)
-    sheet_w, sheet_h = 792.0, 612.0
+    # Target Sheet: US Letter PORTRAIT (8.5 x 11 inches in points)
+    # Panels: 4.25 x 5.5 inches (306 x 396 pt)
+    sheet_w, sheet_h = 612.0, 792.0
     panel_w, panel_h = sheet_w / 2.0, sheet_h / 2.0
 
     for k in range(1, num_sheets + 1):
@@ -40,13 +41,13 @@ def make_nested_quarter_zine(
         idx_br = (2 * k - 1) - 1
 
         quads = [
-            (pages[idx_br], 0, False),  # Bottom-Right
-            (pages[idx_tl], 1, True),  # Top-Left (Rotated 180)
-            (pages[idx_tr], 2, True),  # Top-Right (Rotated 180)
-            (pages[idx_bl], 3, False),  # Bottom-Left
+            (pages[idx_br], 0),  # Bottom-Right
+            (pages[idx_tl], 1),  # Top-Left (Rotated 180)
+            (pages[idx_tr], 2),  # Top-Right (Rotated 180)
+            (pages[idx_bl], 3),  # Bottom-Left
         ]
 
-        for page, pos, rotate_180 in quads:
+        for page, pos in quads:
             pw = float(page.mediabox.width)
             ph = float(page.mediabox.height)
 
